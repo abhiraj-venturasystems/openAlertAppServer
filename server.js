@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 //import routes here
-
+import shopRoutes  from './src/routes/shop.js';
 const app = express();
 
 //we can use express.json instead of body-parser (body-parser is a middleware)
@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(cors());
 
 //writing an api keyword before all apis
+app.use('/api/admin/shop', shopRoutes);
 
 //connecting to DB
 const DB_CONN_URL=process.env.DB_CONN;
