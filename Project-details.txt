@@ -14,7 +14,7 @@ outletLogo
 gpsTag,
 tokenMessage
 
-token_details
+token_master
 
 id
 tokenNumber

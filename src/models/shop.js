@@ -15,6 +15,15 @@ const shopShema= new mongoose.Schema({
         required: true,
 
     },
+    emailId:  {
+        type: String,
+        required: true,
+    },
+    privilegeId: {
+        type: Number,
+        default: 2,
+
+    },
     address:  {
         type: String,
         required: true,
@@ -53,6 +62,11 @@ const shopShema= new mongoose.Schema({
     tokenMessage:  {
         type: String,
         default: ''
+    },
+    status: {
+        type: Number,
+        default: 0,
+
     }
     
 
@@ -61,9 +75,9 @@ const shopShema= new mongoose.Schema({
 //hashing the password ( getting as user input)
 //this hashing will happends only password is passed to model before the action(save)
 //eg: before saving the data, password is hashed here
-shopShema.virtual('pwd').set(function(pwd){
-    this.password = bcrypt.hashSync(pwd,10)
+shopShema.virtual('Password').set(function(Password){
+    this.password = bcrypt.hashSync(Password,10)
 });
 
-const shop = mongoose.model('shop-master', shopShema);
+const shop = mongoose.model('shopmaster', shopShema);
 export default shop;

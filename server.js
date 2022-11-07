@@ -6,6 +6,10 @@ dotenv.config();
 
 //import routes here
 import shopRoutes  from './src/routes/shop.js';
+import tokenRoutes  from './src/routes/token.js';
+
+import globalErrorHandler from './src/utils/GlobalErrorHandler.js';
+
 const app = express();
 
 //we can use express.json instead of body-parser (body-parser is a middleware)
@@ -18,11 +22,32 @@ app.use(express.json());
 app.use(cors());
 
 //writing an api keyword before all apis
-app.use('/api/admin/shop', shopRoutes);
+app.use('/api/cms/shop', shopRoutes);
+app.use('/api/cms/token', tokenRoutes);
+
+//ERROR HANDLER
+app.use(globalErrorHandler);
 
 //connecting to DB
 const DB_CONN_URL=process.env.DB_CONN;
 const PORT=process.env.PORT;
+
+
+//useNewUrlParser: true
+//The underlying MongoDB driver has deprecated their current connection string parser. 
+//Because this is a major change, they added the useNewUrlParser flag to allow users 
+//to fall back to the old parser if they find a bug in the new parser. 
+//You should set useNewUrlParser: true unless that prevents you from connecting
+
+//Note that if you specify useNewUrlParser: true, 
+//you must specify a port in your connection string, like mongodb://localhost:27017/dbname.
+
+//The new url parser does not support connection strings that do not have a port, like mongodb://localhost/dbname.
+
+//useUnifiedTopology: true
+//You should set this option to true, except for the unlikely case 
+//that it prevents you from maintaining a stable connection.
+//If not set, the MongoDB driver defaults to using 30000 (30 seconds)
 
 mongoose.connect(DB_CONN_URL, {
     useNewUrlParser: true,
